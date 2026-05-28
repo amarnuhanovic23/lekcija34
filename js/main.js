@@ -1,6 +1,19 @@
 var circle = document.getElementById("circle");
 var showTime = document.getElementById("time");
 var timestart = new Date().getTime();
+var score = 0;
+var lastscore = score;
+var circShw = 1000;
+
+function diffChange() {
+    if(score != lastscore){
+        lastscore = score;
+        circle.style.width = (100 - score) + "px";
+        circle.style.height = (100 - score) + "px";
+        circShw = circShw - 50;
+    }
+}
+
 
 function showCircle() {
 
@@ -15,10 +28,13 @@ showCircle();
 
 circle.onclick = function () {
     circle.style.display = "none";
-    setTimeout(showCircle, 1000);
+    setTimeout(showCircle, circShw);
     var timeEnd = new Date().getTime();
     var time = (timeEnd - timestart) / 1000;
     showTime.innerHTML = time + "s";
+    score++;
+    document.getElementById("score").innerHTML = score;
+    diffChange();
 }
 
 function randomColor() {
